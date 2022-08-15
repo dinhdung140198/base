@@ -1,26 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tgs/data/repository/auth_repository/auth_repository_impl.dart';
-import 'package:tgs/internal/app_controller.dart';
 
-abstract class ViewState{}
 
-class ViewLoading extends ViewState{}
-class ViewError extends ViewState{}
-class ViewData extends ViewState{
+class ViewData {
   final List<String>? items;
+  final bool loading;
 
-  ViewData({this.items});
+  ViewData({this.items, this.loading = true});
 
-  ViewData copyWith({List<String>? item}){
-    return ViewData(items: item ?? items);
+  ViewData copyWith({List<String>? item, bool? mLoading}){
+    return ViewData(items: item ?? items, loading: mLoading ?? loading);
   }
 }
 
-
-class Tab1ViewModel extends StateNotifier<ViewState>{
+class Tab1ViewModel extends StateNotifier<AsyncValue<ViewData>>{
   final AuthRepositoryImpl authRepositoryImpl;
 
-  Tab1ViewModel(this.authRepositoryImpl) : super(ViewLoading());
+  Tab1ViewModel(this.authRepositoryImpl) : super(const AsyncLoading());
 
   List<String> items = [];
   ViewData? dataState;
@@ -33,17 +29,20 @@ class Tab1ViewModel extends StateNotifier<ViewState>{
     try{
       await Future.delayed(const Duration(seconds: 1));
       items.addAll(['1', '2', '3', '4']);
+      //throw FlutterError('flutter error');
       //appController.dialog.showDefaultDialog(context: mainContext, message: 'init context');
-      dataState = ViewData(items: items);
-      state = dataState!;
+      dataState = ViewData(items: items, loading: false,);
+      state = AsyncData(dataState!);
+      //await Future.delayed(const Duration(seconds: 1));
+      //state = AsyncData(dataState!.copyWith(mLoading: false));
     }
     catch(e){
-      appController.dialog.showDefaultDialog(context: mainContext, message: e.toString());
+      state = AsyncError(e.toString());
     }
   }
 
-  void removeItem(int index){
+  void removeItem(int index) {
     items.removeAt(index);
-    state = dataState!.copyWith(item: items);
+    state = AsyncData(dataState!.copyWith(item: items));
   }
 }

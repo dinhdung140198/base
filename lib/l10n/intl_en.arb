@@ -1,3 +1,6 @@
 {
-  "hello": "hello"
+  "hello": "hello",
+  "homeTitle": "title",
+  "next": "Next",
+  "back": "Back"
 }

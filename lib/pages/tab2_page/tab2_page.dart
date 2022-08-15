@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tgs/pages/home/layout/result_layout.dart';
 
 class Tab2Page extends StatelessWidget {
   final String text;
@@ -6,14 +7,6 @@ class Tab2Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 18,
-          color: Colors.black,
-        ),
-      ),
-    );
+    return const ResultLayout();
   }
 }

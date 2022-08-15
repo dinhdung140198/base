@@ -7,7 +7,7 @@ DateTime? clickTime;
 
 class AppHelper {
 
-  void hideKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
+  static void hideKeyboard(BuildContext context) => FocusScope.of(context).unfocus();
 
   static double screenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;

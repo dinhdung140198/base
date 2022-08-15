@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
@@ -16,5 +17,16 @@ extension DateTimeExtension on DateTime{
       throw StateError("element is null");
     }
     return DateFormat('EEEE').format(this);
+  }
+
+  String get toDisplayJapanType{
+    if(this == null){
+      throw StateError("element is null");
+    }
+
+    final onlyDate = DateTime(year, month, day);
+    final onlyTime = TimeOfDay(hour: hour, minute: minute);
+
+    return '${DateFormat.yMMMMEEEEd('ja').format(onlyDate)} ${onlyTime.hour.toString().padLeft(2, '0')} : ${onlyTime.minute.toString().padLeft(2, '0')}';
   }
 }

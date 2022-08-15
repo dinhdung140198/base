@@ -3,11 +3,13 @@ enum AppPage {
   error('/error', ''),
   login('/login', ''),
   root('/', ''),
-  tab1('/tab1', ''),
-  tab2('/tab2', ''),
-  tab3('/tab3', ''),
-  tab4('/tab4', ''),
-  detail1('detail/:id', 'id');
+  home('/home', ''),
+  suggestion('/suggestion', ''),
+  setting('/setting', ''),
+  detail1('detail/:id', 'id'),
+  detail2('detail2/:id', 'id'),
+  detail3('detail3/:id2', 'id2'),
+  infoDetail('info_detail', '');
 
   const AppPage(this.path, this.params);
   final String path;
@@ -35,7 +37,6 @@ extension AppPageExtension on AppPage{
 
   /// return parameters from route path
   /// https://gorouter.dev/parameters
-
   String get params{
     switch(this){
       case AppPage.detail1:
@@ -43,10 +44,5 @@ extension AppPageExtension on AppPage{
       default:
         return '';
     }
-
-
   }
-
-
-
 }*/

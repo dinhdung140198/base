@@ -7,6 +7,9 @@ import 'package:tgs/pages/authen/login/login_page.dart';
 import 'package:tgs/pages/detail_page/detail_page.dart';
 import 'package:tgs/pages/landing_page/landing_page.dart';
 import 'package:tgs/pages/main_page/main_page.dart';
+import 'package:tgs/pages/setting/info/info_page.dart';
+import 'package:tgs/pages/tab2_page/detail/item_detail_page.dart';
+import 'package:tgs/pages/tab2_page/detail/item_detail_result_page.dart';
 
 final myAppRouter = Provider<AppRouter>((ref) {
   final router = RouterNotifier(ref);
@@ -34,7 +37,7 @@ class AppRouter {
             GoRoute(
               path: AppPage.root.path,
               name: AppPage.root.name,
-              redirect: (state) => AppPage.tab1.path,
+              redirect: (state) => AppPage.home.path,
             ),
 
             GoRoute(
@@ -45,12 +48,12 @@ class AppRouter {
 
             // tab1
             GoRoute(
-              path: AppPage.tab1.path,
-              name: AppPage.tab1.name,
+              path: AppPage.home.path,
+              name: AppPage.home.name,
               pageBuilder: (_, state) => FadeTransitionPage(
                 key: _transitionPageKey,
                 child: const MainPage(
-                  tab: MainTab.tab1,
+                  tab: MainTab.home,
                 ),
               ),
               routes: [
@@ -59,7 +62,6 @@ class AppRouter {
                   name: AppPage.detail1.name,
                   builder: (context, state) {
                     final id = state.params[AppPage.detail1.params];
-
                     return DetailPage(id: id);
                   },
                 ),
@@ -68,38 +70,57 @@ class AppRouter {
 
             //tab2
             GoRoute(
-              path: AppPage.tab2.path,
-              name: AppPage.tab2.name,
+              path: AppPage.suggestion.path,
+              name: AppPage.suggestion.name,
               pageBuilder: (_, state) => FadeTransitionPage(
                 key: _transitionPageKey,
                 child: const MainPage(
-                  tab: MainTab.tab2,
+                  tab: MainTab.suggestion,
                 ),
               ),
+              routes: [
+                GoRoute(
+                  path: AppPage.detail2.path,
+                  name: AppPage.detail2.name,
+                  builder: (context, state) {
+                    final id = state.params[AppPage.detail2.params];
+
+                    return ItemDetailPage(id: id!,);
+                  },
+                  routes: [
+                    GoRoute(
+                        path: AppPage.detail3.path,
+                        name: AppPage.detail3.name,
+                        builder: (context, state) {
+                          final id = state.params[AppPage.detail3.params];
+
+                          return ItemDetailResultPage(id: id!,);
+                        },
+                    ),
+                  ]
+                ),
+              ]
             ),
 
             //tab3
             GoRoute(
-              path: AppPage.tab3.path,
-              name: AppPage.tab3.name,
+              path: AppPage.setting.path,
+              name: AppPage.setting.name,
               pageBuilder: (_, state) => FadeTransitionPage(
                 key: _transitionPageKey,
                 child: const MainPage(
-                  tab: MainTab.tab3,
+                  tab: MainTab.setting,
                 ),
               ),
-            ),
-
-            //tab4
-            GoRoute(
-              path: AppPage.tab4.path,
-              name: AppPage.tab4.name,
-              pageBuilder: (_, state) => FadeTransitionPage(
-                key: _transitionPageKey,
-                child: const MainPage(
-                  tab: MainTab.tab4,
+              routes: [
+                GoRoute(
+                  path: AppPage.infoDetail.path,
+                  name: AppPage.infoDetail.name,
+                  builder: (_, state){
+                    return const InfoPage();
+                  }
                 ),
-              ),
+              ]
             ),
           ],
         );

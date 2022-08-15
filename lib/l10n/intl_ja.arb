@@ -1,3 +1,6 @@
 {
-  "hello": "うか"
+  "hello": "うか",
+  "homeTitle": "アドバイス",
+  "next": "Next",
+  "back": "Back"
 }
